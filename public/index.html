@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Cases - Checkout</title>
+    <link rel="stylesheet" href="styles/simple.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo.svg" alt="Logo" class="logo-img">
+                <h1>iPhone Cases</h1>
+            </div>
+        </header>
+
+        <main class="checkout">
+            <!-- Order Summary -->
+            <div class="order-card">
+                <h2>Your Order</h2>
+                <div class="order-item">
+                    <div class="item-info">
+                        <h3>iPhone 15 Pro Clear Case</h3>
+                        <p>Crystal clear protection</p>
+                        <div class="quantity">
+                            <button onclick="updateQuantity(-1)">-</button>
+                            <span id="quantity">2</span>
+                            <button onclick="updateQuantity(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="price" id="item-price">HK$200.00</div>
+                </div>
+                
+                <div class="order-total">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">HK$200.00</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total:</span>
+                        <span id="total">HK$200.00</span>
+                    </div>
+                </div>
+
+                <!-- Currency Selection -->
+                <div class="currency-selection">
+                    <h3>Currency</h3>
+                    <div class="currency-tabs">
+                        <button class="currency-tab active" onclick="switchCurrency('HKD', this)">HKD</button>
+                        <button class="currency-tab" onclick="switchCurrency('EUR', this)">EUR</button>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <h3>Payment Method</h3>
+                
+                <div class="payment-tabs">
+                    <button class="tab active" onclick="switchTab('card', this)">💳 Card</button>
+                    <button class="tab" onclick="switchTab('ideal', this)">🏦 iDEAL</button>
+                </div>
+
+                <!-- Card Payment Form -->
+                <div id="card-form" class="payment-form active">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="card-number">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expiry</label>
+                            <input type="text" placeholder="MM/YY" maxlength="5" id="card-expiry">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="4" id="card-cvv">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- iDEAL Payment Form -->
+                <div id="ideal-form" class="payment-form">
+                    <div class="form-group">
+                        <label>Select Your Bank</label>
+                        <select id="ideal-bank">
+                            <option value="">Choose your bank...</option>
+                            <option value="ABNANL2A">ABN AMRO</option>
+                            <option value="INGBNL2A">ING Bank</option>
+                            <option value="RABONL2U">Rabobank</option>
+                            <option value="SNSBNL2A">SNS Bank</option>
+                        </select>
+                    </div>
+                    <p class="info">You'll be redirected to your bank's secure login.</p>
+                </div>
+
+                    <button id="pay-button" class="pay-button" onclick="processPayment()">
+                        Complete Payment - HK$200.00
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processing payment...</p>
+        </div>
+
+        <!-- Messages -->
+        <div id="message" class="message" style="display: none;"></div>
+    </div>
+
+    <script src="scripts/simple.js"></script>
+</body>
+</html>

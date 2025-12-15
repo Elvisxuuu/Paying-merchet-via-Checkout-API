@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - iPhone Cases</title>
+    <link rel="stylesheet" href="styles/simple.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="images/logo.svg" alt="Logo" class="logo-img">
+                <h1>iPhone Cases</h1>
+            </div>
+        </header>
+
+        <main style="text-align: center; padding: 60px 20px;">
+            <div style="background: #FFFFFD; border-radius: 16px; padding: 50px; box-shadow: 0 4px 20px rgba(50, 52, 22, 0.1); max-width: 500px; margin: 0 auto;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                <h2 style="color: #323416; margin-bottom: 20px; font-size: 2rem;">Payment Successful!</h2>
+                <p style="color: #8C9E6E; margin-bottom: 30px; font-size: 1.1rem;">
+                    Thank you for your purchase! Your order has been confirmed and you will receive an email confirmation shortly.
+                </p>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 30px 0; text-align: left;">
+                    <h3 style="color: #323416; margin-bottom: 15px;">Payment Details</h3>
+                    <p><strong>Payment Reference:</strong> <span id="payment-reference">PAY-CARD-123456</span></p>
+                    <p><strong>Payment Method:</strong> <span id="payment-method">Card</span></p>
+                    <p><strong>Amount:</strong> <span id="amount">HK$200.00</span></p>
+                    <p><strong>Status:</strong> <span id="status" style="color: #8C9E6E; font-weight: 600;">Confirmed</span></p>
+                </div>
+
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="window.location.href='/'" style="background: #323416; color: #FFFFFD; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">
+                        Continue Shopping
+                    </button>
+                    <button onclick="window.print()" style="background: transparent; color: #323416; border: 2px solid #323416; padding: 15px 30px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">
+                        Print Receipt
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Extract payment details from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const method = urlParams.get('method') || 'Card';
+        const amount = urlParams.get('amount') || '78.57';
+        const bank = urlParams.get('bank');
+        const paymentReference = urlParams.get('payment_account_reference') || `PAY-${method.toUpperCase()}-${Date.now()}`;
+        const status = urlParams.get('status') || 'Confirmed';
+        
+        // Update display
+        document.getElementById('payment-method').textContent = method === 'ideal' ? `iDEAL (${bank})` : method.charAt(0).toUpperCase() + method.slice(1);
+        const currency = urlParams.get('currency') || 'HKD';
+        
+        // Format amount based on currency
+        let formattedAmount;
+        if (currency === 'EUR') {
+            formattedAmount = `€${amount}`;
+        } else {
+            formattedAmount = `HK$${parseFloat(amount).toFixed(2)}`;
+        }
+        
+        document.getElementById('amount').textContent = formattedAmount;
+        document.getElementById('payment-reference').textContent = paymentReference;
+        document.getElementById('status').textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    </script>
+</body>
+</html>
